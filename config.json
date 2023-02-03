@@ -4,6 +4,7 @@
         "attribute": "length",
         "ascending": false
     },
+    "lookup_lists_path": "./data/lookup_lists",
     "redactor_open_char": "<",
     "redactor_close_char": ">",
     "annotators": {
