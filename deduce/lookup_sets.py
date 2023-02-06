@@ -11,10 +11,9 @@ from deduce.str.processor import (
 )
 
 
-class LookupSetLoader(object):
+class LookupSetLoader:
 
     def __init__(self, config_dict):
-        current_dir = os.getcwd()
         data_path_str = os.path.abspath(config_dict["lookup_lists_path"])
         self.data_path = Path(data_path_str)
 
