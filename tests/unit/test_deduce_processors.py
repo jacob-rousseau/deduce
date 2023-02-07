@@ -3,11 +3,10 @@ from typing import Optional
 import docdeid as dd
 
 from deduce.deduce import Deduce
-from deduce.lookup_sets import get_lookup_sets
 from deduce.tokenize import DeduceTokenizer
 
-config = Deduce._initialize_config()
-lookup_sets = get_lookup_sets()
+config = Deduce.initialize_config()
+lookup_sets = Deduce.initialize_lookupsets(config)
 tokenizer = DeduceTokenizer()
 
 deduce_processors = Deduce._initialize_annotators(config["annotators"].copy(), lookup_sets, tokenizer)

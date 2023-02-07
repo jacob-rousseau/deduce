@@ -1,6 +1,6 @@
 import docdeid as dd
 
-from deduce.lookup_sets import get_lookup_sets
+from deduce.deduce import Deduce
 from deduce.pattern.name_context import (
     InitialNameContextPattern,
     InitialsContextPattern,
@@ -9,7 +9,8 @@ from deduce.pattern.name_context import (
 )
 from tests.helpers import linked_tokens
 
-lookup_sets = get_lookup_sets()
+config = Deduce.initialize_config()
+lookup_sets = Deduce.initialize_lookupsets(config)
 
 
 class TestInterfixContextPattern:

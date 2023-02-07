@@ -10,7 +10,6 @@ import docdeid as dd
 
 import deduce.backwards_compat
 from deduce import utils
-from deduce.lookup_sets import get_lookup_sets
 from deduce.process.annotation_processing import (
     DeduceMergeAdjacentAnnotations,
     PersonAnnotationConverter,
@@ -18,6 +17,7 @@ from deduce.process.annotation_processing import (
 from deduce.process.annotator import AnnotationContextPatternAnnotator
 from deduce.process.redact import DeduceRedactor
 from deduce.tokenize import DeduceTokenizer
+from deduce.lookup_sets import LookupSetLoader
 
 warnings.simplefilter(action="once")
 
@@ -32,13 +32,17 @@ class Deduce(dd.DocDeid):
     def __init__(self, config_file: Optional[str] = None) -> None:
         super().__init__()
 
-        self.config = self._initialize_config(config_file)
-        self.lookup_sets = get_lookup_sets()
+        self.config = self.initialize_config(config_file)
+        self.lookup_sets = self.initialize_lookupsets(self.config)
         self.tokenizers = self._initialize_tokenizers()
         self.initialize_doc_processors()
 
     @staticmethod
-    def _initialize_config(config_file: Optional[str] = None) -> dict:
+    def initialize_lookupsets(config) -> dd.ds.DsCollection:
+        return LookupSetLoader(config).build_lookup_sets()
+
+    @staticmethod
+    def initialize_config(config_file: Optional[str] = None) -> dict:
         """
         Initialize the config file.
 
@@ -66,7 +70,7 @@ class Deduce(dd.DocDeid):
 
     @staticmethod
     def _initialize_annotators(
-        annotator_cnfg: dict, lookup_sets: dd.ds.DsCollection, tokenizer: dd.tokenize.Tokenizer
+        annotator_cnfg: dict, lookup_sets, tokenizer: dd.tokenize.Tokenizer
     ) -> dd.process.DocProcessorGroup:
         """Initializes annotators."""
 
