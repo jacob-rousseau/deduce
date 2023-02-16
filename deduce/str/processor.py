@@ -51,8 +51,8 @@ class Acronimify(StringModifier):
     def process(self, item: str) -> str:
 
         item_split = item.split(self.split_value)
-
-        return self.join_value.join(x[0] for x in item_split)
+        # Remove empty strings; this can occur if two consecutive self.split_value are present in the input
+        return self.join_value.join(x[0] for x in [x for x in item_split if x])
 
 
 class FilterBasedOnLookupSet(StringFilter):
