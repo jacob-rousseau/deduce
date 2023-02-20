@@ -4,7 +4,7 @@
         "attribute": "length",
         "ascending": false
     },
-    "lookup_lists_path": "./data/lookup_lists",
+    "lookup_lists_path": "/mnt/nethome/._home/jrousseau/deduce-runs/lookup-lists",
     "redactor_open_char": "<",
     "redactor_close_char": ">",
     "annotators": {
