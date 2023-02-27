@@ -139,9 +139,11 @@ class LookupSetLoader:
 
         institutions.add_items_from_self(cleaning_pipeline=[dd.str.ReplaceValue("ziekenhuis", "zkh")])
 
-        institutions.add_items_from_self(
-            cleaning_pipeline=[dd.str.LowercaseString(), Acronimify(), dd.str.FilterByLength(min_len=3)]
-        )
+        # Temporarily removed the acronimification of institutes. Leads to a lot of false-positives e.g. 'too' and 'are'
+        # are annotated as PHI ([INSTELLING_XXX]).
+        #institutions.add_items_from_self(
+        #    cleaning_pipeline=[dd.str.LowercaseString(), Acronimify(), dd.str.FilterByLength(min_len=3)]
+        #)
 
         institutions = institutions - self._load_whitelist()
 
