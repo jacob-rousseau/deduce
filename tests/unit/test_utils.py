@@ -16,6 +16,7 @@ class TestUtils:
 
         assert str_match("a", "a")
         assert str_match("willem", "willem")
+        assert str_match("Capital-Name", "CAPITAL-NAME")
         assert not str_match("a", "b")
         assert not str_match("willem", "klaas")
 
