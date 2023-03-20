@@ -105,6 +105,12 @@ class TestPersonSurnamePattern:
 
         assert self.pattern.match(tokens[0], metadata=metadata) == (tokens[0], tokens[3])
 
+    def test_match_equal_uppercase(self):
+        metadata = {"surname_pattern": self.surname_pattern}
+        tokens = linked_tokens(["VAN DER", "HEIDE", "-", "GINKEL", "is", "de", "naam"])
+
+        assert self.pattern.match(tokens[0], metadata=metadata) == (tokens[0], tokens[3])
+
     def test_match_longer_than_tokens(self):
 
         metadata = {"surname_pattern": self.surname_pattern}

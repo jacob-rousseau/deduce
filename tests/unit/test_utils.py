@@ -1,4 +1,4 @@
-from deduce.utils import any_in_text, str_match
+from deduce.utils import any_in_text, str_match, str_match_ignore_case
 
 
 class TestUtils:
@@ -16,8 +16,18 @@ class TestUtils:
 
         assert str_match("a", "a")
         assert str_match("willem", "willem")
+        assert not str_match("Capital-Name", "CAPITAL-NAME")
         assert not str_match("a", "b")
         assert not str_match("willem", "klaas")
+
+    def test_str_match_case_ignore_case(self):
+        assert str_match_ignore_case("a", "A")
+        assert str_match_ignore_case("a", "a")
+        assert str_match_ignore_case("willem", "Willem")
+        assert str_match_ignore_case("willem", "willem")
+        assert str_match_ignore_case("Capital-Name", "CAPITAL-NAME")
+        assert not str_match_ignore_case("a", "b")
+        assert not str_match_ignore_case("willem", "klaas")
 
     def test_str_match_fuzzy(self):
 

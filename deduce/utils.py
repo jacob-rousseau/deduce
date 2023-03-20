@@ -36,6 +36,22 @@ def str_match(str_1: str, str_2: str, max_edit_distance: Optional[int] = None) -
     return str_1 == str_2
 
 
+def str_match_ignore_case(str_1: str, str_2: str, max_edit_distance: Optional[int] = None) -> bool:
+    """
+    Match two strings while ignoring case. E.g. 'Abc' == 'ABC'. Uses the Python function string.upper(); see there
+    on how strings are converted to uppercase
+
+    Args:
+        str_1: The first string.
+        str_2: The second string.
+        max_edit_distance: Max edit distance between the two strings. Will use exact matching if argument is not used.
+
+    Returns:
+        ``True`` if the strings match ignoring case, ``False`` otherwise.
+    """
+    return str_match(str_1.upper(), str_2.upper(), max_edit_distance)
+
+
 def class_for_name(module_name: str, class_name: str) -> Any:
     """
     Will import and return the class by name.

@@ -2,7 +2,7 @@ from typing import Optional
 
 import docdeid as dd
 
-from deduce.utils import str_match
+from deduce.utils import str_match_ignore_case
 
 
 class PersonFirstNamePattern(dd.TokenPattern):
@@ -18,8 +18,8 @@ class PersonFirstNamePattern(dd.TokenPattern):
 
         for first_name in metadata["patient"].first_names:
 
-            if str_match(token.text, first_name) or (
-                len(token.text) > 3 and str_match(token.text, first_name, max_edit_distance=1)
+            if str_match_ignore_case(token.text, first_name) or (
+                len(token.text) > 3 and str_match_ignore_case(token.text, first_name, max_edit_distance=1)
             ):
 
                 return token, token
@@ -44,11 +44,11 @@ class PersonInitialFromNamePattern(dd.TokenPattern):
 
         for _, first_name in enumerate(metadata["patient"].first_names):
 
-            if str_match(token.text, first_name[0]):
+            if str_match_ignore_case(token.text, first_name[0]):
 
                 next_token = token.next()
 
-                if (next_token is not None) and str_match(next_token.text, "."):
+                if (next_token is not None) and str_match_ignore_case(next_token.text, "."):
                     return token, next_token
 
                 return token, token
@@ -66,7 +66,7 @@ class PersonInitialsPattern(dd.TokenPattern):
 
     def match(self, token: dd.Token, metadata: dd.MetaData) -> Optional[tuple[dd.Token, dd.Token]]:
 
-        if str_match(token.text, metadata["patient"].initials):
+        if str_match_ignore_case(token.text, metadata["patient"].initials):
             return token, token
 
         return None
@@ -103,7 +103,7 @@ class PersonSurnamePattern(dd.TokenPattern):
 
         while True:
 
-            if not str_match(surname_token.text, token.text, max_edit_distance=1):
+            if not str_match_ignore_case(surname_token.text, token.text, max_edit_distance=1):
                 return None
 
             match_end_token = token
